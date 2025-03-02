@@ -1,15 +1,24 @@
 import 'dart:ui';
-import 'package:book_app/book.dart';
+import 'package:wannawatch/watch.dart';
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
-  final Book book;
-  const DetailPage({super.key, required this.book});
+  final Watch watch;
+  const DetailPage({super.key, required this.watch});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(book.name)),
+      appBar: AppBar(
+        title: Text(watch.name),
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w900,
+          fontFamily: 'Montserrat',
+          color: Color.fromARGB(255, 255, 255, 255),
+        ),
+        backgroundColor: Color.fromARGB(255, 181, 90, 90),
+      ),
       body: ListView(
         children: <Widget>[
           Container(
@@ -17,13 +26,13 @@ class DetailPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 3,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(book.image),
+                image: AssetImage(watch.image),
                 fit: BoxFit.cover,
               ),
             ),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: Center(child: Image.asset(book.image, width: 130)),
+              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+              child: Center(child: Image.asset(watch.image, width: 130)),
             ),
           ),
 
@@ -32,10 +41,11 @@ class DetailPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                book.name,
+                watch.name,
                 style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Montserrat',
                 ),
               ),
             ),
@@ -45,62 +55,75 @@ class DetailPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              bookInfo(book.rate.toString(), "Rating"),
-              bookInfo(book.page.toString(), "Page"),
-              bookInfo(book.language.toString(), "Language"),
+              watchInfo(watch.rate.toString(), 'Rating'),
+              watchInfo(watch.episodes.toString(), 'Episodes'),
+              watchInfo(watch.language.toString(), 'Language'),
             ],
           ),
 
           // Deskripsi
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(
+              left: 20,
+              right: 20,
+              top: 24,
+              bottom: 8
+            ),
             child: Text(
-            "Description",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600),
+              'Description',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Open Sans',
+              ),
             ),
           ),
           Padding(
-            padding:const EdgeInsets.all(8),
-            child: bookDesc(book.description),
-          )
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              bottom: 24
+            ),
+            child: watchDesc(watch.synopsis),
+          ),
         ],
       ),
     );
-  }  
+  }
 }
 
-Widget bookDesc(String description) {
-  return Column(
+Widget watchDesc(String description) {
+  return  Column(
     children: [
       Text(
         description,
         style: const TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w400
+          fontWeight: FontWeight.w400,
+          fontFamily: 'Open Sans',
         ),
-      )
+      ),
     ],
   );
 }
 
-
-Widget bookInfo(String value, String info) {
+Widget watchInfo(String value, String info) {
   return Column(
     children: [
       Text(
         value,
         style: TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w600
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Open Sans',
         ),
       ),
       Text(
         info,
         style: const TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w500
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Open Sans',
         ),
       ),
     ],
